@@ -1,0 +1,2 @@
+kubectl get pods --all-namespaces -o custom-columns='NAMESPACE:.metadata.namespace,NAME:.metadata.name,LABELS:.metadata.labels'
+kubectl get networkpolicies --all-namespaces -o custom-columns='NAMESPACE:.metadata.namespace,NAME:.metadata.name,SELECTOR:.spec.podSelector.matchLabels'
