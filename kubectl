@@ -2,3 +2,6 @@ kubectl get pods --all-namespaces -o custom-columns='NAMESPACE:.metadata.namespa
 kubectl get networkpolicies --all-namespaces -o custom-columns='NAMESPACE:.metadata.namespace,NAME:.metadata.name,SELECTOR:.spec.podSelector.matchLabels'
  kubectl get rolebindings --all-namespaces -o=jsonpath='{range .items[*]}{@.metadata.name}{"\t"}{@.roleRef.kind}{"\t"}{@.roleRef.name}{"\t"}{range @.subjects[*]}{@.kind}:{@.name}{"\t"}{end}{"\n"}{end}'
 kubectl get clusterrolebindings --all-namespaces -o=jsonpath='{range .items[*]}{@.metadata.name}{"\t"}{@.roleRef.kind}{"\t"}{@.roleRef.name}{"\t"}{range @.subjects[*]}{@.kind}:{@.name}{"\t"}{end}{"\n"}{end}'
+
+
+kubectl get clusterrolebindings --all-namespaces -o=jsonpath='{range .items[?(@.roleRef.name=="cluster-admin" && @.subjects[?(@.kind=="Group" && @.name=="cluster-admin")])]}{@.metadata.name}{"\n"}{end}'
