@@ -5,3 +5,5 @@ kubectl get clusterrolebindings --all-namespaces -o=jsonpath='{range .items[*]}{
 
 
 kubectl get clusterrolebindings --all-namespaces -o=jsonpath='{range .items[?(@.roleRef.name=="cluster-admin" && @.subjects[?(@.kind=="Group" && @.name=="cluster-admin")])]}{@.metadata.name}{"\n"}{end}'
+
+kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.namespace}{"\t"}{range .spec.containers[*]}{.name}{"\t"}{.securityContext.readOnlyRootFilesystem}{"\n"}{end}{end}' | grep true
